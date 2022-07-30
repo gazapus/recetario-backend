@@ -3,7 +3,6 @@ package com.gazapus.restservice.dao.impl;
 import com.gazapus.restservice.dao.TipoComidaDao;
 import com.gazapus.restservice.entity.TipoComida;
 import com.gazapus.restservice.repository.TipoComidaRepository;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +13,6 @@ public class TipoComidaDaoImpl implements TipoComidaDao {
 
     @Autowired
     private TipoComidaRepository tipoComidaRepository;
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Override
     public List<TipoComida> findAll() {

@@ -5,8 +5,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,15 +41,16 @@ public class Receta implements Serializable {
     @JoinTable(name = "tipo_comida_receta",
             joinColumns = @JoinColumn(name = "RECETA_ID"),
             inverseJoinColumns = @JoinColumn(name = "TIPO_COMIDA_ID"))
-    private Set<TipoComida> tipoComidas = new LinkedHashSet<>();
+    private List<TipoComida> tiposDeComida = new ArrayList<>();
 
     @OneToMany(mappedBy = "receta")
-    private Set<IngredienteReceta> ingredienteRecetas = new LinkedHashSet<>();
+    private List<IngredienteReceta> ingredienteRecetas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "receta")
-    private Set<Foto> fotos = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "receta", fetch = FetchType.LAZY)
+	@OrderBy("esPrincipal asc, id asc")
+	private List<Foto> fotos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta")
-    private Set<Paso> pasos = new LinkedHashSet<>();
-
+	@OrderBy("orden asc")
+	private List<Paso> pasos = new ArrayList<>();
 }
